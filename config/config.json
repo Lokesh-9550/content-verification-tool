@@ -1,0 +1,28 @@
+{
+  "crawl": {
+    "startUrl": "https://quotes.toscrape.com/page/1/",
+    "baseUrl": "https://quotes.toscrape.com",
+    "maxPages": 10,
+    "delayMs": 800,
+    "userAgent": "Mozilla/5.0 (compatible; ContentVerifierBot/1.0; +https://github.com/Lokesh-9550/content-verification-tool)"
+  },
+  "selectors": {
+    "quote": "div.quote",
+    "text": "span.text",
+    "author": "small.author",
+    "authorLink": "a[href^=\"/author/\"]",
+    "tag": "div.tags a.tag",
+    "next": "li.next a"
+  },
+  "verification": {
+    "apiBase": "https://en.wikipedia.org/api/rest_v1/page/summary/",
+    "retries": 3,
+    "backoffMs": 500,
+    "timeoutMs": 10000,
+    "requireTags": true
+  },
+  "output": {
+    "dir": "data/output",
+    "pretty": true
+  }
+}

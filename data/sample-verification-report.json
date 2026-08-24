@@ -1,0 +1,62 @@
+{
+  "note": "Representative verification report. 'authorVerification' is produced by cross-checking each unique author against the Wikipedia REST summary API; note how 'Thomas A. Edison' resolves to the canonical title 'Thomas Edison'.",
+  "generatedAt": "2026-03-10T14:22:11.904Z",
+  "summary": {
+    "quotesExtracted": 10,
+    "uniqueAuthors": 8,
+    "authorsVerified": 8,
+    "authorsFlagged": 0,
+    "completenessIssues": 0
+  },
+  "completenessIssues": [],
+  "authorVerification": [
+    {
+      "author": "Albert Einstein",
+      "status": "verified",
+      "wikipediaTitle": "Albert Einstein",
+      "extract": "Albert Einstein was a German-born theoretical physicist who is widely held to be one of the greatest and most influential scientists of all time."
+    },
+    {
+      "author": "J.K. Rowling",
+      "status": "verified",
+      "wikipediaTitle": "J. K. Rowling",
+      "extract": "Joanne Rowling, known by her pen name J. K. Rowling, is a British author and philanthropist. She is best known for writing the Harry Potter fantasy series."
+    },
+    {
+      "author": "Jane Austen",
+      "status": "verified",
+      "wikipediaTitle": "Jane Austen",
+      "extract": "Jane Austen was an English novelist known primarily for her six major novels, which interpret, critique, and comment upon the British landed gentry."
+    },
+    {
+      "author": "Marilyn Monroe",
+      "status": "verified",
+      "wikipediaTitle": "Marilyn Monroe",
+      "extract": "Marilyn Monroe was an American actress and model. Known for playing comedic characters, she became one of the most popular sex symbols of the 1950s."
+    },
+    {
+      "author": "André Gide",
+      "status": "verified",
+      "wikipediaTitle": "André Gide",
+      "extract": "André Paul Guillaume Gide was a French author and winner of the Nobel Prize in Literature in 1947."
+    },
+    {
+      "author": "Thomas A. Edison",
+      "status": "verified",
+      "wikipediaTitle": "Thomas Edison",
+      "extract": "Thomas Alva Edison was an American inventor and businessman. He developed many devices in fields such as electric power generation and sound recording."
+    },
+    {
+      "author": "Eleanor Roosevelt",
+      "status": "verified",
+      "wikipediaTitle": "Eleanor Roosevelt",
+      "extract": "Anna Eleanor Roosevelt was an American political figure, diplomat, and activist who served as the first lady of the United States from 1933 to 1945."
+    },
+    {
+      "author": "Steve Martin",
+      "status": "verified",
+      "wikipediaTitle": "Steve Martin",
+      "extract": "Stephen Glenn Martin is an American actor, comedian, writer, producer, and musician."
+    }
+  ]
+}

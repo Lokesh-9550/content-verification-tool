@@ -1,0 +1,29 @@
+{
+  "name": "content-verification-tool",
+  "version": "1.0.0",
+  "description": "A content verification & web intelligence tool that crawls large sets of web pages, extracts structured data with CSS selectors, and cross-checks it against a third-party REST API (Wikipedia) with retry logic and error handling for reliable delivery at scale.",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "verify": "node src/index.js",
+    "test": "node --test"
+  },
+  "keywords": [
+    "web-scraping",
+    "web-crawling",
+    "content-verification",
+    "data-extraction",
+    "rest-api",
+    "cheerio",
+    "nodejs",
+    "data-quality"
+  ],
+  "author": "Puttam Lokesh <puttamlokesh9550@gmail.com> (https://github.com/Lokesh-9550)",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0"
+  }
+}

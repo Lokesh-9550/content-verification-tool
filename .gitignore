@@ -1,0 +1,21 @@
+# Dependencies
+node_modules/
+package-lock.json
+
+# Crawl / verification runtime output (committed samples stay in data/)
+data/output/
+
+# Logs
+*.log
+logs/
+
+# Environment / secrets
+.env
+.env.local
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
