@@ -16,9 +16,11 @@
   },
   "verification": {
     "apiBase": "https://en.wikipedia.org/api/rest_v1/page/summary/",
-    "retries": 3,
-    "backoffMs": 500,
+    "retries": 4,
+    "backoffMs": 600,
     "timeoutMs": 10000,
+    "delayMs": 200,
+    "userAgent": "ContentVerifierBot/1.0 (https://github.com/Lokesh-9550/content-verification-tool; puttamlokesh9550@gmail.com)",
     "requireTags": true
   },
   "output": {

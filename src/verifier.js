@@ -1,7 +1,7 @@
 'use strict';
 
 const logger = require('./logger');
-const { fetchWithRetry } = require('./apiClient');
+const { fetchWithRetry, sleep } = require('./apiClient');
 
 /**
  * Completeness / consistency checks on extracted records.
@@ -35,7 +35,13 @@ async function verifyAuthor(author, verificationCfg) {
       retries: verificationCfg.retries,
       backoffMs: verificationCfg.backoffMs,
       timeoutMs: verificationCfg.timeoutMs,
-      headers: { Accept: 'application/json' },
+      headers: {
+        Accept: 'application/json',
+        // Wikimedia's API etiquette asks callers to identify themselves with a
+        // descriptive User-Agent (client + contact). Omitting it invites
+        // aggressive rate-limiting (429s).
+        'User-Agent': verificationCfg.userAgent,
+      },
     });
 
     if (res.status === 404) return { author, status: 'not_found' };
@@ -63,11 +69,15 @@ async function verifyAuthors(quotes, verificationCfg) {
   const uniqueAuthors = [...new Set(quotes.map((q) => q.author).filter(Boolean))];
   logger.info(`Verifying ${uniqueAuthors.length} unique author(s) against the reference API...`);
 
+  const delayMs = verificationCfg.delayMs || 0;
   const results = [];
-  for (const author of uniqueAuthors) {
+  for (let i = 0; i < uniqueAuthors.length; i += 1) {
+    const author = uniqueAuthors[i];
     const result = await verifyAuthor(author, verificationCfg);
     logger.info(`  ${result.status === 'verified' ? '[OK]  ' : '[FLAG]'} ${author} -> ${result.status}`);
     results.push(result);
+    // Space out requests so we stay under the reference API's rate limit.
+    if (delayMs && i < uniqueAuthors.length - 1) await sleep(delayMs);
   }
   return results;
 }

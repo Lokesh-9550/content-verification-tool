@@ -38,8 +38,11 @@ from the web — can we trust it?"* It does that in two complementary ways:
   selectors are declared in `config/config.json`.
 - **REST API integration** — cross-checks extracted entities against an external
   reference source.
-- **Robust HTTP client** — timeouts via `AbortController`, retries with
-  **exponential backoff**, and retry only on transient conditions (408/429/5xx).
+- **Robust, well-behaved HTTP client** — timeouts via `AbortController`, retries
+  with **exponential backoff**, retry only on transient conditions (408/429/5xx),
+  and it **honors the server's `Retry-After` header** when rate-limited. Requests
+  send a descriptive **`User-Agent`** and are spaced by a configurable delay to
+  stay within the reference API's rate limits.
 - **Structured reporting** — emits both the crawled dataset and a
   `verification-report.json` summarizing verified vs. flagged records.
 
@@ -109,9 +112,17 @@ examples of the two output files.
   "crawl":  { "startUrl": "https://quotes.toscrape.com/page/1/", "maxPages": 10, "delayMs": 800 },
   "selectors": { "quote": "div.quote", "author": "small.author", "next": "li.next a", ... },
   "verification": { "apiBase": "https://en.wikipedia.org/api/rest_v1/page/summary/",
-                    "retries": 3, "backoffMs": 500, "timeoutMs": 10000, "requireTags": true }
+                    "retries": 4, "backoffMs": 600, "timeoutMs": 10000,
+                    "delayMs": 200,               // pause between author lookups (rate-limit courtesy)
+                    "userAgent": "ContentVerifierBot/1.0 (+repo url; contact)",
+                    "requireTags": true }
 }
 ```
+
+> **On rate limits:** the reference API (Wikipedia) throttles bursts of anonymous
+> traffic. The verifier stays polite by sending a descriptive `User-Agent`,
+> spacing requests by `verification.delayMs`, and backing off on `429`/`Retry-After`.
+> If you still see `unreachable` flags, raise `delayMs` or lower `crawl.maxPages`.
 
 ## Testing
 
@@ -120,7 +131,7 @@ npm test     # Node built-in test runner (tests/*.test.js)
 ```
 
 Tests cover CSS-selector extraction (Cheerio), completeness checks, report
-aggregation, and the retry/backoff logic.
+aggregation, and the HTTP client's retry/backoff and `Retry-After` parsing.
 
 ## Responsible Scraping
 
